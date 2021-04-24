@@ -12,36 +12,36 @@ struct ListView: View {
     
     
     var body: some View {
-        if viewModel.refreshing {
-            ProgressView(){
-                Text("Loading…")
-            }
-        } else {
-            VStack {
-                TextField("Filter", text: $viewModel.filterText)
-                    .padding(5)
-                    .border(Color.init(.sRGB, white: 0.9, opacity: 1.0))
-                    .padding()
-                HStack {
-                    Text("Series: ")
-                    Picker(selection: $viewModel.seriesFilter, label: Text("Series")) {
-                        Text("All").tag(0)
-                        Text("1").tag(1)
-                        Text("2").tag(2)
-                        Text("3").tag(3)
-                        Text("4").tag(4)
-                        Text("5").tag(5)
-                    }.pickerStyle(SegmentedPickerStyle())
+        NavigationView {
+            if viewModel.refreshing {
+                ProgressView(){
+                    Text("Loading…")
                 }
-                .padding()
-
-                Form {
+            } else {
+                VStack {
+                    TextField("Filter", text: $viewModel.filterText)
+                        .padding(5)
+                        .border(Color.init(.sRGB, white: 0.9, opacity: 1.0))
+                        .padding()
+                    HStack {
+                        Text("Series: ")
+                        Picker(selection: $viewModel.seriesFilter, label: Text("Series")) {
+                            Text("All").tag(0)
+                            Text("1").tag(1)
+                            Text("2").tag(2)
+                            Text("3").tag(3)
+                            Text("4").tag(4)
+                            Text("5").tag(5)
+                        }.pickerStyle(SegmentedPickerStyle())
+                    }
+                    .padding()
+                    
                     List(viewModel.filteredCharacters){ character in
-                        NavigationLink(destination: Text("Test")) {
+                        NavigationLink(destination: CharacterDetailView(character)) {
                             CharacterRow(character)
                         }
                     }
-                }
+                }.navigationTitle("Characters")
             }
         }
     }
