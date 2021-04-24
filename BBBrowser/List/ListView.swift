@@ -37,7 +37,9 @@ struct ListView: View {
 
                 Form {
                     List(viewModel.filteredCharacters){ character in
-                        NavigationLink(character.name, destination: Text("test"))
+                        NavigationLink(destination: Text("Test")) {
+                            CharacterRow(character)
+                        }
                     }
                 }
             }
