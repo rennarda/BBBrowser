@@ -17,6 +17,15 @@ struct ListView: View {
                 ProgressView(){
                     Text("Loading…")
                 }
+            } else if viewModel.fetchError != nil {
+                VStack(spacing: 30) {
+                    Text("Unable to load characters")
+                    Button {
+                        viewModel.fetchCharacters()
+                    } label: {
+                        Text("Retry")
+                    }
+                }
             } else {
                 VStack {
                     TextField("Filter", text: $viewModel.filterText)

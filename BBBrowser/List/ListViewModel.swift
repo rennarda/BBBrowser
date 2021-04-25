@@ -35,6 +35,7 @@ class ListViewModel: ObservableObject {
     
     func fetchCharacters() {
         refreshing = true
+        fetchError = nil
         let publisher: AnyPublisher<[BreakingBadCharacter], Error> = apiClient.get(BreakingBadAPI.characters.url)
         publisher.sink { completion in
             if case .failure(let error) = completion {
